@@ -346,3 +346,18 @@
   git commit -m "End of Lab"
   git push origin master
   ```
+
+## Use the Actuator API
+
+* Temporarily disable the actuator endpoint security. We would not do this in production, but want you to have an opportunity to explore the metrics.
+
+  * Open the file at **src** -> **main** -> **resources** -> **application.properties**
+  * Add the following code to the file: ```management.security.enabled=false```
+
+* Restart your application at the command line using one of the *bootRun* commands in the above step
+ Ensure that it compiles and starts and then refresh the [localhost:8080/byzip/12345](http://localhost:8080/byzip/12345) page to ensure it still works
+  1. Visit some of the Actuator endpoints to see the available metrics and information (This is where the JSON Formatter plugin comes in handy)
+    * [localhost:8080/info](http://localhost:8080/info)
+    * [localhost:8080/health](http://localhost:8080/health)
+    * [localhost:8080/metrics](http://localhost:8080/metrics)
+    * [localhost:8080/env](http://localhost:8080/env)
