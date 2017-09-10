@@ -337,14 +337,12 @@
 
   On Windows, we need to ensure that the executable bit is flipped on a few of our files:
   ```
-  git update-index --chmod=+x ci/scripts/build.sh
   git update-index --chmod=+x gradlew
   ```
 
   On either operating system, complete the following steps:
 
   ```
-  git commit -m "Added build step to concourse pipeline."
+  git commit -m "End of Lab"
   git push origin master
   ```
-    
