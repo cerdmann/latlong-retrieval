@@ -1,6 +1,6 @@
 ---
 applications:
-- name: latlong-retrieval
+- name: weather-retrieval
   random-route: true
   memory: 1G
   disk: 1G
