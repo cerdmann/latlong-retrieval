@@ -174,7 +174,7 @@
                 body: artifact/release_notes.md
                 commitish: artifact/release_commitish.txt
                 globs:
-                - artifact/lab*.jar
+                - artifact/latlong-retrieval*.jar
                 - artifact/manifest.yml
       ```
 
