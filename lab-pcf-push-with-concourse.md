@@ -223,7 +223,7 @@
 
     ./gradlew clean build
 
-    ARTIFACT=$(cd ./build/libs && ls lab*.jar)
+    ARTIFACT=$(cd ./build/libs && ls latlong-retrieval*.jar)
     COMMIT=$(git rev-parse HEAD)
 
     echo $ARTIFACT > ../artifact/release_name.txt
