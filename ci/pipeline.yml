@@ -1,29 +1,45 @@
-    resources:
-      - name: git-repo
-        type: git
-        source:
-          uri: {{git-repo}}
-          branch: {{git-repo-branch}}
+resources:
+  - name: git-repo
+    type: git
+    source:
+      uri: {{git-repo}}
+      branch: {{git-repo-branch}}
 
-      - name: resource-version
-        type: semver
-        source:
-          driver: git
-          uri: {{git-repo-ssh-address}}
-          branch: version
-          file: version
-          private_key: {{git-ssh-key}}
-          git_user: {{git-user-email}}
-          initial_version: 0.0.1
+  - name: resource-version
+    type: semver
+    source:
+      driver: git
+      uri: {{git-repo-ssh-address}}
+      branch: version
+      file: version
+      private_key: {{git-ssh-key}}
+      git_user: {{git-user-email}}
+      initial_version: 0.0.1
 
-    jobs:
-      - name: build
-        plan:
-          - get: git-repo
-            trigger: true
-          - get: resource-version
-            params: {bump: patch}
-          - task: build
-            file: git-repo/ci/tasks/build.yml
-          - put: resource-version
-            params: {file: resource-version/version}
+  - name: gh-release
+    type: github-release
+    source:
+      repository: {{git-repo-name}}
+      user: {{git-user}}
+      access_token: {{git-access-token}}
+
+jobs:
+  - name: build
+    plan:
+      - get: git-repo
+        trigger: true
+      - get: resource-version
+        params: {bump: patch}
+      - task: build
+        file: git-repo/ci/tasks/build.yml
+      - put: resource-version
+        params: {file: resource-version/version}
+      - put: gh-release
+        params:
+          name: artifact/release_name.txt
+          tag: resource-version/number
+          body: artifact/release_notes.md
+          commitish: artifact/release_commitish.txt
+          globs:
+          - artifact/lab*.jar
+          - artifact/manifest.yml
