@@ -177,7 +177,7 @@
     i.e.
 
     ```
-    fly -t pcg  set-pipeline -p latlong-retrieval -c ./ci/pipeline.yml -l ../latlong-concourse-config.ymll
+    fly -t ci set-pipeline -p latlong-retrieval -c ./ci/pipeline.yml -l ../latlong-concourse-config.yml
     ```
 
   * You will get prompted to *apply configuration*. Type *y*
