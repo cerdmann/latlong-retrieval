@@ -386,7 +386,7 @@
           - put: deploy-dev
             params:
               manifest: gh-release/concourse-dev-manifest.yml
-              current_app_name: latlong-retrieval 
+              current_app_name: latlong-retrieval
               path: gh-release
     ```
 
@@ -434,7 +434,6 @@
 
   * Go to your browser and click on the *build* box. In the upper right hand corner, you will see a **+** sign which will trigger the build. Press it
   * Go to the Pivotal Cloud Foundry Apps Manager API [PCF Apps Manager endpoint] in your browser. Observe the uptime of your app to see that it has recently been modified. If you are monitoring your app in the Apps Manager while Concourse is deploying it, you might see 2 applications. This is because the *cf* resource will perform a blue-green deploy of your app
-  * Try modifying the message your app displays in the *HelloController*. Push the change to Github, and watch the pipeline automatically pick up your change and deploy it.
 1. Next we are going to add the steps to deploy to both staging and prod
   * These will not be triggered deploys, but will require you to click on the build in the pipeline to trigger them
   * You could automate this step through slack, or with Pivotal Tracker, but for this workshop, we will rely on manually clicking to push to stage and prod
@@ -516,7 +515,7 @@
               body: artifact/release_notes.md
               commitish: artifact/release_commitish.txt
               globs:
-              - artifact/lab*.jar
+              - artifact/latlong-retrieval*.jar
               - artifact/concourse-dev-manifest.yml
 
       - name: deploy-dev
@@ -529,7 +528,7 @@
           - put: deploy-dev
             params:
               manifest: gh-release/concourse-dev-manifest.yml
-              current_app_name: lab-application
+              current_app_name: latlong-retrieval
               path: gh-release
 
       - name: deploy-stage
@@ -541,7 +540,7 @@
           - put: deploy-stage
             params:
               manifest: gh-release/concourse-dev-manifest.yml
-              current_app_name: lab-application
+              current_app_name: latlong-retrieval
               path: gh-release
 
       - name: deploy-prod
@@ -553,7 +552,7 @@
           - put: deploy-prod
             params:
               manifest: gh-release/concourse-dev-manifest.yml
-              current_app_name: lab-application
+              current_app_name: latlong-retrieval
               path: gh-release
     ```
 
