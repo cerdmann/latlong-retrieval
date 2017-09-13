@@ -267,12 +267,12 @@
     ```
     ---
     applications:
-    - name: lab-application
+    - name: latlong-retrieval
       random-route: true
-      memory: 512M
+      memory: 1G
       disk: 1G
       instances: 2
-      path: ./lab-0.0.1-SNAPSHOT.jar
+      path: ./latlong-retrieval-0.0.1-SNAPSHOT.jar
     ```
 
     A better solution will be to use a script to modify the manifest based on the name of the artifact. Right now we are keeping the name of the artifact consistent. As soon as we change the name of it, the manifests will break
@@ -295,7 +295,7 @@
 
     ./gradlew clean build
 
-    ARTIFACT=$(cd ./build/libs && ls lab*.jar)
+    ARTIFACT=$(cd ./build/libs && ls latlong-retrieval*.jar)
     COMMIT=$(git rev-parse HEAD)
 
     echo $ARTIFACT > ../artifact/release_name.txt
@@ -373,7 +373,7 @@
               body: artifact/release_notes.md
               commitish: artifact/release_commitish.txt
               globs:
-              - artifact/lab*.jar
+              - artifact/latlong-retrieval*.jar
               - artifact/concourse-dev-manifest.yml
 
       - name: deploy-dev
@@ -386,7 +386,7 @@
           - put: deploy-dev
             params:
               manifest: gh-release/concourse-dev-manifest.yml
-              current_app_name: lab-application
+              current_app_name: latlong-retrieval 
               path: gh-release
     ```
 
