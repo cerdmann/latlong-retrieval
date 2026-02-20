@@ -1,34 +1,44 @@
-buildscript {
-	ext {
-		springBootVersion = '1.5.6.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'sample latitude and longitude retrieval service'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-
-jar {
-  baseName = 'latlong-retrieval'
-  version = '0.0.1-SNAPSHOT'
+configurations {
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
 }
-
-sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-hateoas')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+  implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+  compileOnly 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
+  testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'
+  testImplementation 'org.springframework.boot:spring-boot-starter-hateoas-test'
+  testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
 }
