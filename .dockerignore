@@ -1,2 +1,7 @@
+.git
 .gradle
-build
+.idea
+build/
+bin/
+out/
+*.log
