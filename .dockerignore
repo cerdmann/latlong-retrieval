@@ -1,7 +1,7 @@
 .git
 .gradle
 .idea
-build/
+build
 bin/
 out/
 *.log
