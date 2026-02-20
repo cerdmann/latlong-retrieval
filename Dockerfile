@@ -10,7 +10,7 @@ COPY src ./src
 
 # 3. FIX: Use GRADLE_OPTS to prevent forking a new JVM
 # This keeps the memory footprint steady so Harness doesn't kill the pod
-RUN GRADLE_OPTS="-Xmx1g -Xms512m" gradle build --no-daemon -x test
+RUN GRADLE_OPTS="-Xmx1536m -Xms512m -XX:MaxMetaspaceSize=256m" gradle build --no-daemon -x test
 
 # Run stage
 FROM eclipse-temurin:8-jdk-jammy
