@@ -20,4 +20,5 @@ FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 # Ensure we only grab the actual bootable jar
 COPY --from=build /app/build/libs/*[!-plain].jar app.jar
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
