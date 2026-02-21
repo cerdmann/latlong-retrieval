@@ -19,6 +19,6 @@ RUN ./gradlew build --no-daemon -x test \
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 # Ensure we only grab the actual bootable jar
-COPY --from=build /app/build/libs/*[!-plain].jar app.jar
+COPY --from=build /app/build/libs/*[!-plain].jar ./
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar /app/*.jar"]
