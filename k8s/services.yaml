@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{.Values.name}}-svc
 spec:
-  type: {{.Values.serviceType}}
+  type: {{.Values.service.type}}        # Added .service.
   selector:
     app: {{.Values.name}}
   ports:
     - protocol: TCP
-      port: {{.Values.servicePort}}
-      targetPort: {{.Values.port}}
+      port: {{.Values.service.port}}    # Added .service.
+      targetPort: {{.Values.service.targetPort}} # Added .service.

@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { .Values.name } }
+  name: {{.Values.name}}
 spec:
-  replicas: 1
+  replicas: {{.Values.replicas}}
   selector:
     matchLabels:
-      app: { { .Values.name } }
+      app: {{.Values.name}}
   template:
     metadata:
       labels:
-        app: { { .Values.name } }
+        app: {{.Values.name}}
     spec:
       containers:
-        - name: { { .Values.name } }
-          image: { { .Values.image } }
+        - name: {{.Values.name}}
+          image: {{.Values.image}}
           resources:
             requests:
-              memory: { { .Values.resources.requests.memory | quote } }
-              cpu: { { .Values.resources.requests.cpu | quote } }
+              memory: {{.Values.resources.requests.memory | quote}}
+              cpu: {{.Values.resources.requests.cpu | quote}}
             limits:
-              memory: { { .Values.resources.limits.memory | quote } }
-              cpu: { { .Values.resources.limits.cpu | quote } }
+              memory: {{.Values.resources.limits.memory | quote}}
+              cpu: {{.Values.resources.limits.cpu | quote}}
           ports:
-            - containerPort: { { .Values.port } }
+            - containerPort: {{.Values.service.targetPort}}
           livenessProbe:
             httpGet:
-              path: { { .Values.livenessPath } }
-              port: { { .Values.port } }
-            initialDelaySeconds: 30 # Allow time for JVM startup
-            periodSeconds: 10
+              path: {{.Values.probes.livenessPath}}
+              port: {{.Values.service.targetPort}}
+            initialDelaySeconds: {{.Values.probes.initialDelaySeconds}}
+            periodSeconds: {{.Values.probes.periodSeconds}}
           readinessProbe:
             httpGet:
-              path: { { .Values.readinessPath } }
-              port: { { .Values.port } }
+              path: {{.Values.probes.readinessPath}}
+              port: {{.Values.service.targetPort}}
             initialDelaySeconds: 20
             periodSeconds: 5
