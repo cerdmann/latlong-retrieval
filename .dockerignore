@@ -1,7 +1,6 @@
 .git
 .gradle
 .idea
-build
-bin/
-out/
 *.log
+**/build/*
+!**/build/libs/*.jar
