@@ -1,0 +1,29 @@
+# General App Info
+name: latlong-retrieval
+replicas: 1
+
+# Artifact - Harness will inject 'erds/latlong-retrieval:14' here
+image: <+artifact.image>
+
+# Service Networking
+service:
+  type: LoadBalancer
+  port: 80 # External port for users
+  targetPort: 8080 # Internal port your Spring Boot app listens on
+
+# Spring Boot Actuator Health Probes
+# (Standard paths for Spring Boot 2.3+ / Spring Boot 3+)
+probes:
+  livenessPath: /actuator/health/liveness
+  readinessPath: /actuator/health/readiness
+  initialDelaySeconds: 45 # JVMs need extra time to start up
+  periodSeconds: 10
+
+# Resource Management (Prevents Noisy Neighbor issues)
+resources:
+  requests:
+    cpu: "250m" # 1/4 of a CPU core
+    memory: "512Mi" # 512 Megabytes
+  limits:
+    cpu: "500m" # 1/2 of a CPU core
+    memory: "1Gi" # 1 Gigabyte (JVM safety buffer)

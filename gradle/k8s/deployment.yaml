@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: { { .Values.name } }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: { { .Values.name } }
+  template:
+    metadata:
+      labels:
+        app: { { .Values.name } }
+    spec:
+      containers:
+        - name: { { .Values.name } }
+          image: { { .Values.image } }
+          resources:
+            requests:
+              memory: { { .Values.resources.requests.memory | quote } }
+              cpu: { { .Values.resources.requests.cpu | quote } }
+            limits:
+              memory: { { .Values.resources.limits.memory | quote } }
+              cpu: { { .Values.resources.limits.cpu | quote } }
+          ports:
+            - containerPort: { { .Values.port } }
+          livenessProbe:
+            httpGet:
+              path: { { .Values.livenessPath } }
+              port: { { .Values.port } }
+            initialDelaySeconds: 30 # Allow time for JVM startup
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: { { .Values.readinessPath } }
+              port: { { .Values.port } }
+            initialDelaySeconds: 20
+            periodSeconds: 5
