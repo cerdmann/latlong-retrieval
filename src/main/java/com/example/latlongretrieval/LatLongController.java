@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
 import java.util.*;
 
@@ -22,8 +21,8 @@ public class LatLongController {
     Place place = optional.orElse(new Place());
 
     return new LatLong(place.getName(), place.getLongitude(), place.getState(),
-                       place.getLatitude(), apiResponse.getPostCode(),
-                       apiResponse.getCountry());
+        place.getLatitude(), apiResponse.getPostCode(),
+        apiResponse.getCountry());
   }
 
   private PostCode getZippopotamusResponse(String zipCode) {
